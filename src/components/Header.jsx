@@ -1,13 +1,16 @@
 import { Modal } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/img/logo.png'
+import { SERVER_URL } from '../services/helper';
 
 function Header() {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+
     return (
         <>
             <Modal
@@ -23,7 +26,7 @@ function Header() {
                     <NavLink onClick={handleClose} className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/blog" >Blog</NavLink>
                     <NavLink onClick={handleClose} className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/video" >Videos</NavLink>
                     <NavLink onClick={handleClose} className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/contact" >Contact</NavLink>
-                    <NavLink onClick={handleClose} className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/admin/home" >Admin</NavLink>
+                    <NavLink onClick={handleClose} className={({ isActive }) => (isActive ? 'text-white bg-blue-900  px-8 py-1 rounded-sm duration-300' : ' text-black bg-slate-200 px-8 py-1 rounded-sm hover:bg-slate-300 duration-300')} to="/learn" >Learn</NavLink>
 
                 </div>
             </Modal>
@@ -43,7 +46,7 @@ function Header() {
                     <img src={logo} alt="" className='w-20' />
                 </Link>
 
-                <div className='py-5 text-slate-500 font-medium text-base flex gap-5 text-center'>
+                <div className='py-5 text-slate-500 font-medium text-base flex items-center gap-5 text-center'>
 
                     <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/">Home</NavLink>
                     <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/about">About</NavLink>
@@ -51,8 +54,10 @@ function Header() {
                     <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/blog" >Blog</NavLink>
                     <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/video" >Videos</NavLink>
                     <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/contact" >Contact</NavLink>
-                    <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/admin/home" >Admin</NavLink>
 
+                    <NavLink className={({ isActive }) => (isActive ? 'text-white bg-blue-900  px-8 py-1 rounded-sm duration-300' : ' text-black bg-slate-200 px-8 py-1 rounded-sm hover:bg-slate-300 duration-300')} to="/learn" >Learn</NavLink>
+
+                    {/* <NavLink className={({ isActive }) => (isActive ? 'text-blue-900' : 'hover:text-blue-900')} to="/admin/home" >Admin</NavLink> */}
                 </div>
             </div>
         </>

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 
+
 * {
     font-family: 'Roboto', sans-serif;
     scrollbar-width: auto;

@@ -22,6 +22,11 @@ import MainState from './context/mainState'
 import Notification from './components/Notification'
 import AdminPortfolio from './pages/admin/AdminPortfolio'
 import AdminContact from './pages/admin/AdminContact'
+import TestInput from './pages/TestInput'
+import AdminManageAccount from './pages/admin/AdminManageAccount'
+import Popup from './components/Popup'
+import LearnRegister from './pages/Learn/LearnRegister'
+import LearnLogin from './pages/Learn/LearnLogin'
 
 
 function App() {
@@ -33,6 +38,7 @@ function App() {
 
 
         <Header />
+        <Popup />
 
         <ScrollToTop />
 
@@ -48,14 +54,23 @@ function App() {
           <Route path="/video" element={<Video />}></Route>
           <Route path="/watch" element={<Watch />}></Route>
 
+
           {/* admin routes */}
-          <Route path="/admin" element={<Admin />}></Route>
+
+          {!localStorage.getItem("adminToken") ? <Route path="/admin" element={<Admin />}></Route> :
+            <Route path="/admin" element={<AdminRoute > <AdminHome /></AdminRoute>}></Route>}
+
           <Route path="/admin/home" element={<AdminRoute > <AdminHome /></AdminRoute>}></Route>
           <Route path="/admin/blogs" element={<AdminRoute > <AdminBlog /></AdminRoute>}></Route>
           <Route path="/admin/editblog" element={<AdminRoute > <AdminBlogEdit /></AdminRoute>}></Route>
           <Route path="/admin/videos" element={<AdminRoute > <AdminVideo /></AdminRoute>}></Route>
           <Route path="/admin/portfolio" element={<AdminRoute > <AdminPortfolio /></AdminRoute>}></Route>
           <Route path="/admin/contact" element={<AdminRoute > <AdminContact /></AdminRoute>}></Route>
+          <Route path="/admin/settings" element={<AdminRoute > <AdminManageAccount /></AdminRoute>}></Route>
+
+
+          <Route path='/learn' element={<LearnRegister />}></Route>
+          <Route path='/learn/login' exact element={<LearnLogin />}></Route>
 
 
         </Routes>

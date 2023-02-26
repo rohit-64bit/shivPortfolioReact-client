@@ -1,5 +1,5 @@
-import { Button, Modal } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
+import { Button, Modal } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SidebarAdmin from '../../components/SidebarAdmin'
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -11,7 +11,11 @@ import mainContext from '../../context/mainContext';
 function ManageBlog(props) {
 
   const context = useContext(mainContext)
-  const { setNotification } = context;
+  const { setNotification, fetchBlog } = context;
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   let date = props.date;
   let timeStamp = new Date(date).getTime();
@@ -29,8 +33,8 @@ function ManageBlog(props) {
         'auth-token': localStorage.getItem("adminToken")
       }
     })
-    fetchBlog()
-    setNotification({ status: "true", message: "Blog Deleted", type: "info" })
+    fetchBlog();
+    setNotification({ status: "true", message: "Blog Deleted", type: "info" });
   }
 
   return (
@@ -40,7 +44,7 @@ function ManageBlog(props) {
         <div className='flex justify-between flex-col
         sm:flex-row gap-5 w-full'>
           <div className='font-bold text-base md:text-lg my-auto'>
-            {props.title.length < 25 ?props.title:props.title.slice(0,25)+".."}
+            {props.title?.length < 25 ? props.title : props.title?.slice(0, 25) + ".."}
             <div>
               <div className='font-normal text-xs md:text-sm text-slate-500'>
                 Author : <span>{props.author}</span>
@@ -52,7 +56,21 @@ function ManageBlog(props) {
           </div>
           <div className='my-auto space-x-5'>
             <Link to="/admin/editblog" state={{ data: props.data }} className='font-bold py-[0.70rem] px-3 md:px-8 rounded-md bg-slate-600 hover:bg-slate-900 text-white text-justify transition-all ease-in-out duration-300'>EDIT BLOG</Link>
-            <button onClick={handleDelete} className='p-2 bg-red-600 text-white hover:bg-red-700 rounded-md transition-all ease-in-out duration-300'><DeleteIcon /></button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              className="flex items-center justify-center"
+            >
+              <div className='p-10 w-max h-max bg-white rounded-lg flex flex-col gap-1'>
+                <div>Confirm Delete !</div>
+                <strong>{props.title} - Blog</strong>
+                <div className='flex justify-between gap-5'>
+                  <button onClick={handleDelete} className='bg-slate-200 px-5 py-1 rounded-sm hover:bg-red-600 hover:text-white font-medium transition-all ease-in-out duration-300'>Delete</button>
+                  <button onClick={handleClose} className='bg-slate-200 px-5 py-1 rounded-sm'>CANCEL</button>
+                </div>
+              </div>
+            </Modal>
+            <button onClick={handleOpen} className='p-2 bg-red-600 text-white hover:bg-red-700 rounded-md transition-all ease-in-out duration-300'><DeleteIcon /></button>
           </div>
         </div>
       </div>
@@ -77,7 +95,8 @@ function AdminBlog() {
     fetchBlog();
   }, [])
 
-  const handleCreate = async () => {
+  const handleCreate = async (e) => {
+    e.preventDefault()
     const response = await fetch(`${SERVER_URL}/api/blog/create`, {
       method: 'POST',
       headers: {
@@ -86,10 +105,9 @@ function AdminBlog() {
       },
       body: JSON.stringify({ title: title })
     })
-
-    console.log(response.json());
-    console.log(title);
-
+    setTitle("")
+    fetchBlog();
+    handleClose();
   }
 
   let onChange = (e) => {
@@ -119,7 +137,7 @@ function AdminBlog() {
 
             {blogs?.map((data) => {
               return (
-                <ManageBlog key={data._id} id={data._id} title={data.title} author="Rohit" date={data.date} data={data} />
+                <ManageBlog key={data._id} id={data._id} title={data.title} author={data.author} date={data.date} data={data} />
               )
             })
             }

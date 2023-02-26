@@ -3,6 +3,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { Link } from 'react-router-dom';
 function Footer() {
   return (
     <>
@@ -25,6 +26,7 @@ function Footer() {
               </a>
             </span>
           </div>
+          <Link to="/admin" className='text-sm md:text-base text-white text-center font-light opacity-50 tracking-widest bg-slate-800'>ADMIN PANEL</Link>
         </div>
       </div>
     </>

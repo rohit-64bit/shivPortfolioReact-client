@@ -20,18 +20,16 @@ function Video() {
 
                     {videos.map((data) => {
                         return (
-                            
-                                <Link to='/watch' state={{ data: data }} key={data._id} className='flex flex-col gap-4'>
 
+                            <Link to='/watch' state={{ data: data }} key={data._id} className='flex flex-col gap-4'>
                                     <img src={data.imageLink} alt="THUMBNAIL" />
+                                <div>
+                                    <div className='text-lg font-bold'>{data.title.length > 40 ? data.title.slice(0, 40) + "..." : data.title}</div>
+                                    <div className='font-thin text-slate-500'>{data.authorName}</div>
+                                </div>
 
-                                    <div>
-                                        <div className='text-lg font-bold'>{data.title.length > 40 ? data.title.slice(0, 40) + "..." : data.title}</div>
-                                        <div className='font-thin text-slate-500'>{data.authorName}</div>
-                                    </div>
+                            </Link>
 
-                                </Link>
-                            
                         )
                     })}
 

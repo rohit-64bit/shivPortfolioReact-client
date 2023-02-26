@@ -21,21 +21,14 @@ function Watch() {
             }, {});
     }
 
-
-    // useEffect(() => {
-    //     console.log(data);
-    // }, [])
-
-
     return (
+
         <>
-
             <div className='bg-slate-100 py-10 px-5 lg:py-20'>
-
                 <div className='h-max w-full md:w-[80%] lg:w-[60%] mx-auto  '>
                     <div className='w-full bg-white'>
 
-                        <iframe className='w-full h-[210px] sm:h-[320px] md:h-[390px] lg:h-[430px] rounded-lg shadow-lg' {...getAttrs(data.videoLink)} />
+                        <iframe className='w-full h-[210px] sm:h-[320px] md:h-[390px] lg:h-[501px] rounded-lg shadow-lg' {...getAttrs(data.videoLink)} />
 
                         <div className='p-5'>
 
@@ -50,8 +43,8 @@ function Watch() {
                     <ContactFormRdWr />
                 </div>
             </div>
-
         </>
+
     )
 }
 

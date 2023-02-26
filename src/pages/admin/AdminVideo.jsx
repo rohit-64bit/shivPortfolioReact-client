@@ -9,24 +9,27 @@ import mainContext from '../../context/mainContext';
 function ManageVideo(props) {
 
     const context = useContext(mainContext);
-    const { fetchVideo } = context;
+    const { fetchVideo, setNotification } = context;
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const { id, title } = props;
     const deleteVideo = async () => {
-        
-        const response = fetch(`${SERVER_URL}/api/video/delete/${id}`, {
+
+        const response = await fetch(`${SERVER_URL}/api/video/delete/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': localStorage.getItem("adminToken")
             }
         });
-        const json = await response.json()
-        fetchVideo()
+
+        await fetchVideo();
+        setOpen(false);
 
         // window.location.reload()
-        // console.log(json);
-
     }
 
     return (
@@ -37,7 +40,23 @@ function ManageVideo(props) {
                     <div className='font-bold text-lg'>{title.length > 30 ? title.slice(0, 30) + "..." : title}</div>
                     <div className='text-slate-500 font-medium'>{props.authorName}</div>
                 </div>
-                <button onClick={deleteVideo} className='py-2 px-3  bg-red-500 text-white hover:bg-red-700 transition-all ease-in-out duration-300 rounded-md text-center flex mx-auto'><DeleteIcon /> Delete</button>
+
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    className="flex items-center justify-center"
+                >
+                    <div className='p-10 w-max h-max bg-white rounded-lg flex flex-col gap-1'>
+                        <div>Confirm Delete !</div>
+                        <strong>{props.title} - Blog</strong>
+                        <div className='flex justify-between'>
+                            <button onClick={deleteVideo} className='bg-slate-200 px-5 py-1 rounded-sm hover:bg-red-600 hover:text-white font-medium transition-all ease-in-out duration-300'>Delete</button>
+                            <button onClick={handleClose} className='bg-slate-200 px-5 py-1 rounded-sm'>CANCEL</button>
+                        </div>
+                    </div>
+                </Modal>
+
+                <button onClick={handleOpen} className='py-2 px-3  bg-red-500 text-white hover:bg-red-700 transition-all ease-in-out duration-300 rounded-md text-center flex mx-auto'><DeleteIcon /> Delete</button>
             </div>
         </>
     )
@@ -66,19 +85,16 @@ function AdminVideo() {
             },
             body: JSON.stringify({ url })
         });
-        const json = await response.json()
-        fetchVideo();
-        setOpen(false)
+        // const json = await response.json()
+        await fetchVideo();
         setUrl("");
+        setOpen(false);
     }
 
 
     useEffect(() => {
-
         fetchVideo();
-        console.log(videos);
-
-    }, [])
+    },[])
 
 
     function onChange(e) {
@@ -98,20 +114,18 @@ function AdminVideo() {
                     >
                         <div className='p-10 bg-white rounded-lg'>
                             <form method='POST' onSubmit={handleSubmit} className='space-y-7'>
-                                <input type="url" name='ytlink' onChange={onChange} value={url} className="px-4 py-3 w-full outline outline-1 outline-slate-400 focus:outline-blue-700 transition-all ease-in-out duration-200 font-mono" placeholder='BLOG TITLE' required />
-                                <button className='w-full bg-blue-900 hover:bg-sky-500 py-3 font-bold text-white text-lg transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400' type="submit">CREATE BLOG</button>
+                                <input type="url" name='ytlink' onChange={onChange} value={url} className="px-4 py-3 w-full outline outline-1 outline-slate-400 focus:outline-blue-700 transition-all ease-in-out duration-200 font-mono" placeholder='VIDEO LINK' required />
+                                <button className='w-full bg-blue-900 hover:bg-sky-500 py-3 font-bold text-white text-lg transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400' type="submit">ADD VIDEO</button>
                             </form>
                         </div>
                     </Modal>
-                    <div className='h-[76vh] overflow-y-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5'>
+                    <div className='h-[76vh] overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 3xl:grid-cols-4 gap-5'>
 
                         {videos.map((data) => {
                             return (
                                 <ManageVideo key={data._id} id={data._id} imageLink={data.imageLink} title={data.title} authorName={data.authorName} />
                             )
                         })}
-
-
 
                     </div>
                 </div>

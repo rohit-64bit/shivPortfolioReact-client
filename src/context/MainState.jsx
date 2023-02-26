@@ -21,6 +21,19 @@ function MainState(props) {
 
   }
 
+  const [visitAnalytics, setVisitAnalytics] = useState([])
+
+  const fetchVisitAnalytics = async () => {
+    const response = await fetch(`${SERVER_URL}/api/analytics/fetchVisit`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await response.json()
+    setVisitAnalytics(json)
+  }
+
   const [blogs, setBlogs] = useState([])
 
   const fetchBlog = async () => {
@@ -36,8 +49,21 @@ function MainState(props) {
 
   }
 
+  const [portfolio, setPortfolio] = useState([])
+
+  const fetchPortfolio = async () => {
+    const response = await fetch(`${SERVER_URL}/api/portfolio/fetch`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await response.json()
+    setPortfolio(json)
+  }
+
   return (
-    <mainContext.Provider value={{ fetchVideo, videos, fetchBlog, blogs, notification, setNotification }}>
+    <mainContext.Provider value={{ fetchVideo, videos, fetchBlog, blogs, notification, setNotification, portfolio, setPortfolio, fetchPortfolio, fetchVisitAnalytics, visitAnalytics }}>
       {props.children}
     </mainContext.Provider>
   )
