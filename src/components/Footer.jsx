@@ -9,10 +9,9 @@ function Footer() {
     <>
       <div className='bg-blue-900 p-10' >
         <div className='flex gap-5 text-white w-max mx-auto '>
-          <a href="" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><FacebookIcon /></a>
-          <a href="" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><TwitterIcon /></a>
-          <a href="" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><InstagramIcon /></a>
-          <a href="" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><LinkedInIcon /></a>
+          <a href="https://www.facebook.com/shibdas.bhattacharya" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><FacebookIcon /></a>
+          {/* <a href="" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><TwitterIcon /></a> */}
+          <a href="https://www.linkedin.com/in/shibdas-bhattacharya-a9b7a578/" className='hover:opacity-100 opacity-50 transition-all ease-in-out ' target="_blank"><LinkedInIcon /></a>
         </div>
         <div className='my-5'>
 

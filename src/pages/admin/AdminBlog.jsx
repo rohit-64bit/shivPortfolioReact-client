@@ -105,9 +105,14 @@ function AdminBlog() {
       },
       body: JSON.stringify({ title: title })
     })
-    setTitle("")
-    fetchBlog();
-    handleClose();
+
+    const json = await response.json();
+
+    if (json.success) {
+      setTitle("")
+      fetchBlog();
+      handleClose();
+    }
   }
 
   let onChange = (e) => {

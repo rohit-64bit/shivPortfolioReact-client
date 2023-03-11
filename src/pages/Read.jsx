@@ -1,6 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import ContactFormRdWr from '../components/ContactFormRdWr';
+import { useEffect } from 'react';
+import { SERVER_URL } from './../services/helper';
 
 
 function Read() {
@@ -13,6 +15,20 @@ function Read() {
     let day = new Date(timeStamp).getDate();
     let month = new Date(timeStamp).toLocaleString('default', { month: 'short' });
     let year = new Date(timeStamp).getFullYear();
+
+    const createReadAnalytics = async () => {
+        const response = await fetch(`${SERVER_URL}/api/analytics/createBlogAnalytics`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ blogID: data._id })
+        })
+    }
+
+    useEffect(() => {
+        createReadAnalytics();
+    }, [])
+
 
     return (
         <>
@@ -29,7 +45,7 @@ function Read() {
                                 <span>Date : <span className='text-slate-400'>{day} {month} {year}</span></span>
                             </div>
 
-                            <div className='text-justify font-medium md:text-lg text-slate-800 whitespace-pre-wrap'>
+                            <div className='text-justify font-medium md:text-lg whitespace-pre-wrap'>
                                 {data.description}
                             </div>
 

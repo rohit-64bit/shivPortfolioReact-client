@@ -20,7 +20,7 @@ function About() {
           <div className='opacity-70 flex flex-col gap-2 text-center lg:text-justify lg:p-5'>
             <div className=''>Mr. Shibdas Bhattacharya is a Machine Learning enthusiast and educator. He has vast experience of more than 10 years in technical education and also works as a Machine Learning consultant in many reputed fintech companies. </div>
             <div className=''>He has completed his bachelor's Degree from the West Bengal University of Technology and Received a Master's degree from, IIT (ISM) Dhanbad.</div>
-            <div className=''>He is also a founding member of Topstack one of the reputed Edtech companies in West Bengal. He keeps his research interests in Computer Vision and deep learning and guided more than fifty projects in this field.</div>
+            <div className=''>He is also a founding member of Topstack one of the leading Edtech companies in West Bengal. He keeps his research interests in Computer Vision and deep learning and guided more than fifty projects in this field.</div>
           </div>
         </div>
       </div>

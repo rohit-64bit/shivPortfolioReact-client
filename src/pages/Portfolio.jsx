@@ -4,7 +4,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkIcon from '@mui/icons-material/Link';
 import mainContext from '../context/mainContext';
 import { useEffect } from 'react';
-
+import portfolioImg from '../assets/images/undraw_projections_re_ulc6.svg'
 
 
 function Details(props) {
@@ -63,11 +63,18 @@ function Portfolio() {
                 <div className='pt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 m-auto'>
 
 
-                    {portfolio.map((data) => {
+                    {portfolio.length ? portfolio.map((data) => {
                         return (
                             <Details key={data._id} data={data} />
                         )
-                    })}
+                    })
+                        :
+                        <div className='col-span-full flex flex-col gap-5 items-center'>
+                            <img src={portfolioImg} alt="" className='m-auto w-[50%] md:w-[30%]' />
+                            <div className='font-bold text-blue-900 text-3xl'>No Projects Found !</div>
+                            <Link to="/" className='hover:bg-blue-900 hover:text-white text-blue-900 border-[3px] border-blue-900 px-10 py-3 m-auto text-center rounded-full h-max duration-300 ease-in-out font-bold'>RETURN TO HOME</Link>
+                        </div>
+                    }
 
 
 

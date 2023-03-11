@@ -2,11 +2,23 @@ import { Title } from '@mui/icons-material';
 import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import ContactFormRdWr from '../components/ContactFormRdWr';
+import { SERVER_URL } from './../services/helper';
 
 function Watch() {
 
     const location = useLocation();
     const { data } = location.state;
+
+
+    const createWatchAnalytics = async () => {
+        const response = await fetch(`${SERVER_URL}/api/analytics/createWatchAnalytics`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ videoID: data._id })
+        })
+    }
+
 
     const getAttrs = (iframeTag) => {
         var doc = document.createElement('div');
@@ -20,6 +32,11 @@ function Watch() {
                 return attrs;
             }, {});
     }
+
+    useEffect(() => {
+        createWatchAnalytics();
+    }, [])
+
 
     return (
 

@@ -34,7 +34,7 @@ function ContactForm() {
 
     return (
         <>
-            <div className="h-max md:h-[90vh] flex flex-col md:items-center gap-5 md:gap-0 md:flex-row p-8 md:p-20 lg:p-28 ">
+            <div className="h-max md:h-[92vh] flex flex-col md:items-center gap-5 md:gap-0 md:flex-row p-8 md:p-20 lg:p-28 ">
                 <div className='md:mx-auto md:w-1/2'>
                     <div className='font-bold text-2xl md:text-3xl text-blue-900'>GET IN TOUCH</div>
                     <div className='font-thin md:mt-5 text-lg font-sans'>Moynadanga, Hooghly <br />

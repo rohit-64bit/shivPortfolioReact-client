@@ -10,9 +10,9 @@ import Video from './pages/Video'
 import ScrollToTop from './components/ScrollToTop'
 import Watch from './pages/Watch'
 import Portfolio from './pages/Portfolio'
+
+
 import AdminRoute from '../src/routes/AdminRoute'
-
-
 import AdminHome from './pages/admin/AdminHome'
 import AdminBlog from './pages/admin/AdminBlog'
 import Admin from './pages/admin/Admin'
@@ -22,14 +22,27 @@ import MainState from './context/mainState'
 import Notification from './components/Notification'
 import AdminPortfolio from './pages/admin/AdminPortfolio'
 import AdminContact from './pages/admin/AdminContact'
-import TestInput from './pages/TestInput'
 import AdminManageAccount from './pages/admin/AdminManageAccount'
 import Popup from './components/Popup'
-import LearnRegister from './pages/Learn/LearnRegister'
-import LearnLogin from './pages/Learn/LearnLogin'
+import { SERVER_URL } from './services/helper'
+import { useEffect } from 'react';
+import NotFound from './pages/NotFound';
 
 
 function App() {
+
+  const createAnalytics = async () => {
+    const response = await fetch(`${SERVER_URL}/api/analytics/createVisit`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }, body: JSON.stringify({ data: "stats logged" })
+    })
+  }
+
+  useEffect(() => {
+    createAnalytics();
+  }, [])
 
 
   return (
@@ -57,9 +70,7 @@ function App() {
 
           {/* admin routes */}
 
-          {!localStorage.getItem("adminToken") ? <Route path="/admin" element={<Admin />}></Route> :
-            <Route path="/admin" element={<AdminRoute > <AdminHome /></AdminRoute>}></Route>}
-
+          <Route path="/admin" element={<Admin />}></Route>
           <Route path="/admin/home" element={<AdminRoute > <AdminHome /></AdminRoute>}></Route>
           <Route path="/admin/blogs" element={<AdminRoute > <AdminBlog /></AdminRoute>}></Route>
           <Route path="/admin/editblog" element={<AdminRoute > <AdminBlogEdit /></AdminRoute>}></Route>
@@ -68,10 +79,7 @@ function App() {
           <Route path="/admin/contact" element={<AdminRoute > <AdminContact /></AdminRoute>}></Route>
           <Route path="/admin/settings" element={<AdminRoute > <AdminManageAccount /></AdminRoute>}></Route>
 
-
-          <Route path='/learn' element={<LearnRegister />}></Route>
-          <Route path='/learn/login' exact element={<LearnLogin />}></Route>
-
+          <Route path='*' element={<NotFound />}></Route>
 
         </Routes>
         <Notification />

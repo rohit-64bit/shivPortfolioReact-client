@@ -6,6 +6,46 @@ function MainState(props) {
 
   const [notification, setNotification] = useState({})
 
+  const [visitAnalytics, setVisitAnalytics] = useState([])
+
+  const fetchVisitAnalytics = async () => {
+    const response = await fetch(`${SERVER_URL}/api/analytics/fetchVisit`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await response.json()
+    setVisitAnalytics(json)
+  }
+
+  const [watchAnalytics, setWatchAnalytics] = useState([])
+  
+  const fetchWatchAnalytics = async () => {
+    const response = await fetch(`${SERVER_URL}/api/analytics/fetchWatchAnalytics`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await response.json()
+    setWatchAnalytics(json)
+  }
+
+
+  const [readAnalytics, setReadAnalytics] = useState([])
+
+  const fetchReadAnalytics = async () => {
+    const response = await fetch(`${SERVER_URL}/api/analytics/fetchBlogAnalytics`, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await response.json()
+    setReadAnalytics(json)
+  }
+
   const [videos, setVideos] = useState([])
 
   const fetchVideo = async () => {
@@ -19,19 +59,6 @@ function MainState(props) {
     const json = await response.json()
     setVideos(json)
 
-  }
-
-  const [visitAnalytics, setVisitAnalytics] = useState([])
-
-  const fetchVisitAnalytics = async () => {
-    const response = await fetch(`${SERVER_URL}/api/analytics/fetchVisit`, {
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const json = await response.json()
-    setVisitAnalytics(json)
   }
 
   const [blogs, setBlogs] = useState([])
@@ -63,7 +90,7 @@ function MainState(props) {
   }
 
   return (
-    <mainContext.Provider value={{ fetchVideo, videos, fetchBlog, blogs, notification, setNotification, portfolio, setPortfolio, fetchPortfolio, fetchVisitAnalytics, visitAnalytics }}>
+    <mainContext.Provider value={{ fetchVideo, videos, fetchBlog, blogs, notification, setNotification, portfolio, setPortfolio, fetchPortfolio, fetchVisitAnalytics, visitAnalytics,fetchReadAnalytics,readAnalytics,fetchWatchAnalytics,watchAnalytics }}>
       {props.children}
     </mainContext.Provider>
   )

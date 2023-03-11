@@ -2,7 +2,7 @@ import { Modal } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import SidebarAdmin from '../../components/SidebarAdmin'
 import { SERVER_URL } from './../../services/helper';
-
+import contact from '../../assets/bg/contact.svg'
 
 
 function Suggestions(props) {
@@ -15,7 +15,7 @@ function Suggestions(props) {
     <>
       <button onClick={handleOpen} className='w-full h-max p-5 bg-slate-100 hover:bg-slate-200 rounded-lg hover:shadow-lg hover:shadow-slate-300 transition-all ease-in-out duration-300 text-left'>
         <div>From : <strong>{props.email}</strong></div>
-        <div>Subject : <strong>{props.subject.slice(0,50)}</strong></div>
+        <div>Subject : <strong>{props.subject.slice(0, 50)}</strong></div>
       </button>
       <Modal
         open={open}
@@ -62,11 +62,17 @@ function AdminContact() {
         <SidebarAdmin />
         <div className='h-[91vh] w-full space-y-7 p-5'>
           <div className='w-full h-[85vh] overflow-y-auto flex flex-col gap-5'>
-            {contactFormData.map((data) => {
-              return (
-                <Suggestions key={data._id} email={data.email} subject={data.subject} name={data.name} body={data.body} date={data.date} />
-              )
-            })}
+
+            {!contactFormData.length ?
+                <img src={contact} className="w-1/2 h-1/2 container m-auto" alt="BG IMAGE" />
+              :
+              contactFormData.map((data) => {
+                return (
+                  <Suggestions key={data._id} email={data.email} subject={data.subject} name={data.name} body={data.body} date={data.date} />
+                )
+              })
+
+            }
 
           </div>
         </div>

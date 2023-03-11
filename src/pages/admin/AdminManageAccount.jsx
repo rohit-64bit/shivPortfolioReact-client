@@ -29,7 +29,7 @@ function AdminManageAccount() {
     const handleUpdatePassword = async (e) => {
 
         e.preventDefault()
-        
+
         if (newPassword != updatedPassword != "") {
             setPassMatch(true)
         } else {
@@ -157,11 +157,16 @@ function AdminManageAccount() {
 
                                 <div className='flex items-center gap-1 md:gap-2 text-xs md:text-lg'>
                                     <div className='font-medium'>DB URL :</div>
-                                    <div className='font-bold select-none flex '><div className='blur-sm'>{DB_URL}</div><Tooltip title="Copy DB URL">
-                                        <IconButton className='blur-0' onClick={copyDB} >
-                                            <CopyAll />
-                                        </IconButton>
-                                    </Tooltip></div>
+                                    <div className='font-bold select-none flex '>
+                                        <div className='blur-sm'>
+                                            {DB_URL}
+                                        </div>
+                                        <Tooltip title="Copy DB URL">
+                                            <IconButton className='blur-0' onClick={copyDB} >
+                                                <CopyAll />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </div>
                                 </div>
                             </div>
                         </div>

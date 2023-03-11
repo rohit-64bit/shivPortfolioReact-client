@@ -51,11 +51,11 @@ function SidebarAdmin() {
                     aria-describedby="modal-modal-description"
                     className="flex justify-center items-center"
                 >
-                    <div className='bg-white p-10 w-auto h-max space-y-5 rounded-md shadow-lg'>
+                    <div className=' bg-white p-10 w-auto h-max space-y-5 rounded-md shadow-lg'>
                         <div className='font-bold'>Confirm Logout</div>
-                        <div className='flex gap-2'>
-                            <button onClick={handleLogout} className='bg-red-600 px-4 w-full py-2 hover:bg-red-800 text-white font-semibold transition-all ease-in-out duration-300 rounded hover:shadow-md'>Logout</button>
-                            <button onClick={handleClose} className='bg-blue-600 px-4 w-full py-2 hover:bg-blue-900 text-white font-semibold transition-all ease-in-out duration-300 rounded hover:shadow-md'>Cancel</button>
+                        <div className='flex gap-3'>
+                            <button onClick={handleLogout} className='bg-blue-400 px-4 w-full py-2 hover:bg-blue-900 text-white font-medium transition-all ease-in-out duration-300 rounded hover:shadow-md'>Logout</button>
+                            <button onClick={handleClose} className='bg-red-400 px-4 w-full py-2 hover:bg-red-800 text-white font-medium transition-all ease-in-out duration-300 rounded hover:shadow-md'>Close</button>
                         </div>
                     </div>
                 </Modal>
