@@ -33,8 +33,18 @@ function ManageBlog(props) {
         'auth-token': localStorage.getItem("adminToken")
       }
     })
-    fetchBlog();
-    setNotification({ status: "true", message: "Blog Deleted", type: "info" });
+
+    const json = await response.json();
+
+    if (json.success) {
+
+      fetchBlog();
+      setNotification({ status: "true", message: "Blog Deleted", type: "info" });
+
+    } else {
+      setNotification({ status: "true", message: "Something went wrong", type: "error" });
+    }
+
   }
 
   return (
@@ -83,7 +93,7 @@ function ManageBlog(props) {
 function AdminBlog() {
 
   const context = useContext(mainContext)
-  const { fetchBlog, blogs } = context;
+  const { fetchBlog, blogs, setNotification } = context;
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -104,14 +114,19 @@ function AdminBlog() {
         'auth-token': localStorage.getItem("adminToken")
       },
       body: JSON.stringify({ title: title })
-    })
+    });
 
     const json = await response.json();
 
     if (json.success) {
-      setTitle("")
+
       fetchBlog();
-      handleClose();
+      setTitle("");
+      setOpen(false);
+      setNotification({ status: "true", message: "Blog Created", type: "success" });
+
+    } else {
+      setNotification({ status: "true", message: "Something went wrong", type: "error" });
     }
   }
 

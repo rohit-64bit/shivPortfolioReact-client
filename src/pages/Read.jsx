@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ContactFormRdWr from '../components/ContactFormRdWr';
 import { useEffect } from 'react';
 import { SERVER_URL } from './../services/helper';
+import ReactMarkdown from 'react-markdown'
 
 
 function Read() {
@@ -34,7 +35,7 @@ function Read() {
         <>
             <div className='bg-slate-100 py-10 px-5 md:py-20'>
 
-                <div className='h-max w-full md:w-[55%] mx-auto  '>
+                <div className='h-max w-full md:w-[70%] lg:w-[55%] xl:w-[50%] mx-auto'>
                     <div className='w-full bg-white'>
                         <img src={data.imageUrl} alt="" className='w-full' />
                         <div className='p-5'>
@@ -45,9 +46,11 @@ function Read() {
                                 <span>Date : <span className='text-slate-400'>{day} {month} {year}</span></span>
                             </div>
 
-                            <div className='text-justify font-medium md:text-lg whitespace-pre-wrap'>
-                                {data.description}
-                            </div>
+                            <article className='text-justify prose sm:prose-sm prose-blue lg:prose-lg xl:prose-xl 2xl:prose-2xl max-w-none mx-auto'>
+                                <ReactMarkdown>
+                                    {data.description}
+                                </ReactMarkdown>
+                            </article>
 
                         </div>
                     </div>

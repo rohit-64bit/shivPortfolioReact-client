@@ -8,13 +8,9 @@ import shibDas from '../assets/img/shibdas.jpg';
 import { Link } from 'react-router-dom';
 import ContactForm from '../components/ContactForm';
 import mainContext from '../context/mainContext';
-
-
-
-
 import ml from '../assets/icons/ml.png'
 import AnalyticsDock from '../components/AnalyticsDock';
-
+import Skeleton from '../components/Skeleton';
 
 function Home() {
 
@@ -81,56 +77,67 @@ function Home() {
                 </div>
             </div>
 
-
             <AnalyticsDock />
 
-
             <div className='bg-slate-100 h-max md:p-20 p-8 flex flex-col justify-center'>
-                <div className='text-center text-4xl font-bold'>MY BLOGS</div>
+                <div className='text-center text-xl md:text-2xl lg:text-4xl font-bold'>MY BLOGS</div>
                 <div className='pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-10 m-auto'>
 
-                    {newBlog.map((data) => {
-                        return (
-                            <Link key={data._id} to='/read' state={{ data: data }} className='flex flex-col gap-4'>
-                                <img src={data.imageUrl} alt="" className='w-[640px] hover:shadow-lg shadow-slate-400 transition-all ease-in-out duration-300' />
-                                <div>
-                                    <div className='text-lg font-bold'>{data.title}</div>
-                                    <div className='font-thin text-slate-300'>{data.description?.slice(0, 30)}...</div>
-                                </div>
-                            </Link>
-                        )
-                    })}
+                    {newBlog.length ?
+                        newBlog.map((data) => {
+                            return (
+                                <Link key={data._id} to='/read' state={{ data: data }} className='flex flex-col gap-4'>
+                                    <img src={data.imageUrl} alt="" className='w-[640px] hover:shadow-lg shadow-slate-400 transition-all ease-in-out duration-300' />
+                                    <div>
+                                        <div className='text-lg font-bold'>{data.title}</div>
+                                        <div className='font-thin text-slate-300'>{data.description?.slice(0, 30)}...</div>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                        :
+                        <>
+                            <Skeleton/>
+                        </>
+                    }
 
                 </div>
                 <div className='mt-10 flex justify-end'>
-                    <Link to='/blog' className='px-10 md:px-14 text-center py-3 text-lg font-medium text-white rounded-full bg-blue-900 hover:bg-sky-500 transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400 '>SEE MORE</Link>
+                    <Link to='/blog' className='px-10 md:px-14 text-center py-1.5 lg:py-3 text-lg font-medium text-white rounded-full bg-blue-900 hover:bg-sky-500 transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400 '>SEE MORE</Link>
                 </div>
 
             </div>
 
             <div className='bg-slate-100 h-max p-8 md:p-20 flex flex-col justify-center'>
-                <div className='text-center text-4xl font-bold'>RESOURCES FOR YOU</div>
+                <div className='text-center text-xl md:text-2xl lg:text-4xl font-bold'>RESOURCES FOR YOU</div>
                 <div className='pt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-10 m-auto'>
 
-                    {newVideo.map((data) => {
-                        return (
-                            <Link key={data._id} state={{ data: data }} to='/watch' className='flex flex-col gap-4'>
+                    {newVideo.length ?
+                        newVideo.map((data) => {
+                            return (
+                                <Link key={data._id} state={{ data: data }} to='/watch' className='flex flex-col gap-4'>
 
-                                <img src={data.imageLink} alt="" />
+                                    <img src={data.imageLink} alt="" />
 
-                                <div>
-                                    <div className='text-lg font-bold'>{data.title}</div>
-                                    <div className='font-thin text-slate-300'>{data.authorName}</div>
-                                </div>
+                                    <div>
+                                        <div className='text-lg font-bold'>{data.title}</div>
+                                        <div className='font-thin text-slate-300'>{data.authorName}</div>
+                                    </div>
 
-                            </Link>
-                        )
-                    })}
+                                </Link>
+                            )
+                        })
+                        :
+                        <>
+                            <Skeleton/>
+                        </>
+                    }
+
 
 
                 </div>
                 <div className='mt-10 flex justify-end'>
-                    <Link to='/video' className='px-10 md:px-14 text-center py-3 text-lg font-medium text-white rounded-full bg-blue-900 hover:bg-sky-500 transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400 '>SEE MORE</Link>
+                    <Link to='/video' className='px-10 md:px-14 text-center py-1.5 lg:py-3 text-lg font-medium text-white rounded-full bg-blue-900 hover:bg-sky-500 transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400 '>SEE MORE</Link>
                 </div>
             </div>
 

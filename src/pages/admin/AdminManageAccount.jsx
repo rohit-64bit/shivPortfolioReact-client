@@ -148,7 +148,7 @@ function AdminManageAccount() {
 
                                 <div className='flex items-center gap-1 md:gap-2 text-xs md:text-lg'>
                                     <div className='font-medium'>Server URL :</div>
-                                    <div className='font-bold select-none flex '><div className='blur-sm'>{SERVER_URL}</div><Tooltip title="Copy Server URL">
+                                    <div className='font-bold select-none flex '><div className='blur-sm'>{SERVER_URL.slice(0,35)}</div><Tooltip title="Copy Server URL">
                                         <IconButton className='blur-0' onClick={copyServer}>
                                             <CopyAll />
                                         </IconButton>
@@ -159,7 +159,7 @@ function AdminManageAccount() {
                                     <div className='font-medium'>DB URL :</div>
                                     <div className='font-bold select-none flex '>
                                         <div className='blur-sm'>
-                                            {DB_URL}
+                                            {DB_URL.slice(0,35)}
                                         </div>
                                         <Tooltip title="Copy DB URL">
                                             <IconButton className='blur-0' onClick={copyDB} >

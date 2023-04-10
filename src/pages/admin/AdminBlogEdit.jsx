@@ -88,7 +88,6 @@ function AdminBlogEdit() {
 
   useEffect(() => {
     fetchAdmin()
-    console.log(admin);
   }, [])
 
 

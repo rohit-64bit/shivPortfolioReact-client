@@ -26,10 +26,16 @@ function ManageVideo(props) {
             }
         });
 
-        await fetchVideo();
-        setOpen(false);
+        const json = await response.json()
 
-        // window.location.reload()
+        if (json.success) {
+            fetchVideo();
+            setOpen(false);
+            setNotification({ status: "true", message: "Video Deleted", type: "info" })
+        } else {
+            setNotification({ status: "true", message: "Something went wrong", type: "error" })
+        }
+
     }
 
     return (
@@ -72,7 +78,7 @@ function AdminVideo() {
     const handleClose = () => setOpen(false);
 
     const context = useContext(mainContext);
-    const { fetchVideo, videos } = context;
+    const { fetchVideo, videos, setNotification } = context;
 
 
     const handleSubmit = async (e) => {
@@ -85,16 +91,25 @@ function AdminVideo() {
             },
             body: JSON.stringify({ url })
         });
-        // const json = await response.json()
-        await fetchVideo();
-        setUrl("");
-        setOpen(false);
+        const json = await response.json()
+
+        if (json.success) {
+
+            fetchVideo();
+            setUrl("");
+            setOpen(false);
+            setNotification({ status: "true", message: "Video Added", type: "success" })
+
+        } else {
+            setNotification({ status: "true", message: "Something went wrong", type: "error" })
+        }
+
     }
 
 
     useEffect(() => {
         fetchVideo();
-    },[])
+    }, [])
 
 
     function onChange(e) {

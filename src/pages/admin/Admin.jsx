@@ -8,6 +8,8 @@ function Admin() {
     const context = useContext(mainContext);
     const { setNotification } = context;
 
+    const [loadingButton, setLoadingButton] = useState(false)
+
     useEffect(() => {
         if (localStorage.getItem("adminToken")) {
             navigate("/admin/home")
@@ -25,9 +27,7 @@ function Admin() {
     const handleAdminLogin = async (e) => {
 
         e.preventDefault();
-
-
-        console.log(credentials);
+        setLoadingButton(true)
 
 
         const response = await fetch(`${SERVER_URL}/api/auth/admin/authadmin`, {
@@ -39,27 +39,21 @@ function Admin() {
         });
         const json = await response.json()
 
-        console.log(json);
-
         if (json.authtoken != undefined) {
 
-            // saving the auth token and redirect
-
-
-            // setNotification({ message: "Login Successfull", type: 'success', status: 'true' })
+            setNotification({ message: "Login Successfull", type: 'success', status: 'true' })
             localStorage.setItem("adminToken", json.authtoken)
             navigate("/admin/home")
 
-
         } else {
             setNotification({ status: "true", message: "Invalid Credentials", type: "error" })
+            setLoadingButton(false)
         }
     }
 
     let onChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
-
 
     return (
         <>
@@ -72,7 +66,7 @@ function Admin() {
                     <input name='password' type="password" onChange={onChange} value={credentials.password} className="px-4 py-3 w-full outline outline-1 outline-slate-400 focus:outline-blue-700 transition-all ease-in-out duration-200 font-mono"
                         placeholder='PASSWORD' required />
 
-                    <button type='submit' onClick={handleAdminLogin} className='w-full bg-blue-900 hover:bg-sky-500 py-3 font-bold text-white text-lg transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400'>LOGIN</button>
+                    <button type='submit' onClick={handleAdminLogin} className='w-full bg-blue-900 hover:bg-sky-500 py-3 font-bold text-white text-lg transition-all ease-in-out duration-300 hover:shadow-lg shadow-slate-400'>{loadingButton ? "loading..." : "LOGIN"}</button>
                     <p>For password recovery contact developer.</p>
                 </form>
             </div>

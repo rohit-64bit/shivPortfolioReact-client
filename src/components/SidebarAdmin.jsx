@@ -20,7 +20,7 @@ function SidebarAdmin() {
 
     function handleLogout() {
         localStorage.removeItem("adminToken");
-        navigate("/admin")
+        navigate("/")
     }
     return (
         <>
